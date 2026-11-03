@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEMIT STUDIO | Misteri Gunung Dempo & Roblox Horror Assets</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        horror: ['Creepster', 'cursive', 'sans-serif'],
+                    },
+                    colors: {
+                        bloodBlack: '#050202',
+                        bloodCard: '#0f0606',
+                        bloodBorder: '#2e0f0f',
+                        bloodRed: '#dc2626',
+                        bloodCrimson: '#991b1b',
+                        bloodDarkRed: '#450a0a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .blood-glow {
+            box-shadow: 0 0 40px rgba(220, 38, 38, 0.35);
+        }
+        .blood-glow-hover:hover {
+            box-shadow: 0 0 30px rgba(220, 38, 38, 0.6);
+        }
+        .text-blood-gradient {
+            background: linear-gradient(135deg, #ef4444 0%, #7f1d1d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-blood-gradient {
+            background: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%);
+        }
+        /* Horror Scanline / Grain overlay effect */
+        .horror-grain {
+            background-image: radial-gradient(rgba(220, 38, 38, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-bloodBlack text-zinc-100 antialiased min-h-screen selection:bg-bloodRed selection:text-white horror-grain">
+
+    <!-- Notification Toast (Replaces alert) -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-28 opacity-0 transition-all duration-300 bg-bloodCard border border-bloodRed px-5 py-4 rounded-xl shadow-2xl flex items-center space-x-3">
+        <div class="text-bloodRed text-xl"><i class="fa-solid fa-skull"></i></div>
+        <div>
+            <h4 class="font-bold text-sm text-red-500">Peringatan Gaib!</h4>
+            <p class="text-xs text-zinc-400" id="toast-msg">Tautan berhasil disalin.</p>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="sticky top-0 z-40 bg-bloodBlack/90 backdrop-blur-md border-b border-bloodBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-blood-gradient flex items-center justify-center font-black text-lg blood-glow text-white">
+                    <i class="fa-solid fa-ghost"></i>
+                </div>
+                <div>
+                    <span class="font-extrabold text-sm sm:text-lg tracking-wider text-blood-gradient block leading-none">DEMIT STUDIO</span>
+                    <span class="text-[9px] font-semibold tracking-widest text-red-500 uppercase">Jual Map dan Asset Roblox</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-zinc-300">
+                <a href="#catalog" class="hover:text-red-500 transition">Map Siap Pakai</a>
+                <a href="#pricelist" class="hover:text-red-500 transition">Price List Jasa</a>
+                <a href="#assets" class="hover:text-red-500 transition">Asset Satuan</a>
+                <a href="#services" class="hover:text-red-500 transition">Layanan Lain</a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <a href="https://discord.com/users/jobaarr" target="_blank" class="hidden sm:inline-flex items-center space-x-2 bg-bloodRed hover:bg-red-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition shadow-lg shadow-bloodRed/30 border border-red-500/40">
+                    <i class="fa-brands fa-discord text-lg"></i>
+                    <span>Discord Admin (@jobaarr)</span>
+                </a>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-zinc-300 hover:text-white p-2 text-xl">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-bloodCard border-b border-bloodBorder px-6 py-4 space-y-3">
+            <a href="#catalog" class="block text-zinc-300 hover:text-red-500 font-medium py-1">Map Siap Pakai</a>
+            <a href="#pricelist" class="block text-zinc-300 hover:text-red-500 font-medium py-1">Price List Jasa</a>
+            <a href="#assets" class="block text-zinc-300 hover:text-red-500 font-medium py-1">Asset Satuan</a>
+            <a href="#services" class="block text-zinc-300 hover:text-red-500 font-medium py-1">Layanan Lain</a>
+            <div class="pt-2">
+                <a href="https://discord.com/users/jobaarr" target="_blank" class="w-full bg-bloodRed text-center py-3 rounded-xl font-bold flex items-center justify-center space-x-2 text-white">
+                    <i class="fa-brands fa-discord text-lg"></i>
+                    <span>Discord Admin (@jobaarr)</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-32 overflow-hidden">
+        <!-- Background Blood Red Glow Blobs -->
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-bloodRed/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/4 left-1/4 w-80 h-80 bg-red-900/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-bloodCard border border-bloodBorder text-red-500 text-xs font-bold uppercase tracking-widest mb-8 shadow-inner">
+                <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                <span>DEMIT STUDIO • JUAL MAP DAN ASSET ROBLOX</span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+                Pusat Jual Map Roblox <span class="text-blood-gradient">Siap Pakai & Asset Horor</span>
+            </h1>
+            
+            <p class="text-zinc-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                Beli map siap main (Ready Play) atau asset kustom berkualitas tinggi untuk game Roblox ciptaanmu. Cepat, aman, dan bergaransi via Discord jobaarr.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#pricelist" class="w-full sm:w-auto bg-blood-gradient hover:opacity-90 text-white font-bold px-8 py-4 rounded-2xl transition shadow-xl shadow-bloodRed/30 flex items-center justify-center space-x-3 border border-red-500/40">
+                    <i class="fa-solid fa-tags"></i>
+                    <span>Lihat Price List Jasa</span>
+                </a>
+                <a href="https://discord.com/users/jobaarr" target="_blank" class="w-full sm:w-auto bg-bloodCard hover:bg-bloodBorder text-white border border-bloodBorder font-bold px-8 py-4 rounded-2xl transition flex items-center justify-center space-x-3">
+                    <i class="fa-brands fa-discord text-red-500 text-lg"></i>
+                    <span>Order via Discord (@jobaarr)</span>
+                </a>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mt-20 pt-12 border-t border-bloodBorder max-w-3xl mx-auto">
+                <div>
+                    <h3 class="text-3xl font-extrabold text-red-500">Ready</h3>
+                    <p class="text-zinc-400 text-sm mt-1">Map Siap Pakai</p>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-extrabold text-red-500">100%</h3>
+                    <p class="text-zinc-400 text-sm mt-1">Script Aman & Optimal</p>
+                </div>
+                <div class="col-span-2 md:col-span-1">
+                    <h3 class="text-3xl font-extrabold text-red-500">Trusted</h3>
+                    <p class="text-zinc-400 text-sm mt-1">Transaksi via Discord</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section / Ready Play Maps -->
+    <section id="catalog" class="py-24 bg-bloodCard/40 border-t border-bloodBorder relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-3"><i class="fa-solid fa-store text-red-600 mr-2"></i>Demit Studio Catalog</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold">Map Siap Pakai (Ready Play)</p>
+                <p class="text-zinc-400 text-sm mt-2">Beli langsung terima file/place Roblox, tinggal publish dan mainkan bersama teman atau player lain!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-1 max-w-lg mx-auto">
+                <!-- Ready Play Map -->
+                <div class="bg-bloodCard border border-bloodBorder rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:border-red-600 group shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-bloodRed text-white text-[10px] font-extrabold px-3 py-1 rounded-bl-xl uppercase tracking-wider">Ready to Play</div>
+                    <div>
+                        <div class="h-48 rounded-xl bg-bloodDarkRed/50 border border-bloodBorder flex flex-col items-center justify-center text-red-500 mb-6 group-hover:border-red-600 transition relative overflow-hidden">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-red-900/20 via-transparent to-transparent"></div>
+                            <i class="fa-solid fa-building-shield text-5xl mb-3 text-red-500 group-hover:scale-110 transition duration-300"></i>
+                            <span class="text-xs font-bold uppercase tracking-wider text-red-400">Full System & Scripts</span>
+                        </div>
+                        <div class="inline-block px-3 py-1 rounded-md bg-red-950/60 border border-red-900 text-red-400 text-xs font-semibold mb-3">Horror Atmosphere</div>
+                        <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-red-400 transition">Jaga Malam : Komplek Melati</h3>
+                        <p class="text-zinc-400 text-sm leading-relaxed mb-6">
+                            Map siap pakai bertema pos ronda & komplek malam hari yang mencekam. Lengkap dengan sistem senter, pos satpam/ronda, checkpoint, dan script jumpscare gaib. Langsung upload ke Roblox Studio!
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-bloodBorder flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] text-zinc-500 block uppercase tracking-wider">Harga Map Ready</span>
+                            <span class="text-xl font-extrabold text-white">Rp 700.000</span>
+                        </div>
+                        <a href="https://discord.com/users/jobaarr" target="_blank" class="bg-bloodRed hover:bg-red-700 text-white px-5 py-3 rounded-xl text-xs font-bold transition flex items-center space-x-2">
+                            <span>Beli Map</span>
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Price List Jasa Section (Integrated from Updated User Image) -->
+    <section id="pricelist" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-3"><i class="fa-solid fa-file-invoice-dollar mr-2"></i>Official Rate Card</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold">Price List Jasa Demit Studio</p>
+                <p class="text-zinc-400 text-sm mt-2">Daftar harga lengkap pembuatan map baru (Gunung Star, Map Horor, Club Full Best System), optimization, scripting, layout, hingga music & dance system sesuai price list terbaru.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- 1. Pembuatan Map Baru (Updated from latest image) -->
+                <div class="bg-bloodCard border border-bloodBorder rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-bloodBorder">
+                            <div class="text-red-500 text-2xl"><i class="fa-solid fa-cubes"></i></div>
+                            <h3 class="text-xl font-bold">1. Pembuatan Map Baru</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-bloodBlack/60 border border-bloodBorder rounded-xl p-4 flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">GUNUNG STAR</h4>
+                                    <p class="text-xs text-zinc-400">10 Checkpoints • Atmosfer Gunung & Survival</p>
+                                </div>
+                                <span class="font-extrabold text-red-500 text-base">Rp 500.000</span>
+                            </div>
+                            <div class="bg-bloodBlack/60 border border-bloodBorder rounded-xl p-4 flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">MAP HOROR</h4>
+                                    <p class="text-xs text-zinc-400">Atmospheric Horror Theme</p>
+                                </div>
+                                <span class="font-extrabold text-red-500 text-base">Rp 1.000.000</span>
+                            </div>
+                            <div class="bg-bloodBlack/60 border border-bloodBorder rounded-xl p-4 flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">CLUB (FULL BEST SYSTEM)</h4>
+                                    <p class="text-xs text-zinc-400">Full Features • AutoDance, VIP & Interaktif</p>
+                                </div>
+                                <span class="font-extrabold text-red-500 text-base">Rp 800.000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-bloodBorder flex justify-end">
+                        <a href="https://discord.com/users/jobaarr" target="_blank" class="bg-bloodRed hover:bg-red-700 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center space-x-2">
+                            <span>Pesan Pembuatan Map</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 2. Optimize Map yang Berat -->
+                <div class="bg-bloodCard border border-bloodBorder rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-bloodBorder">
+                            <div class="text-red-500 text-2xl"><i class="fa-solid fa-gauge-high"></i></div>
+                            <h3 class="text-xl font-bold">2. Optimize Map yang Berat</h3>
+                        </div>
+                        <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                            Menurunkan vertex count, convert model, fix lag, penyetelan StreamingEnabled, dan membersihkan part agar game lancar dimainkan di device low-end atau HP.
+                        </p>
+                        <div class="bg-bloodBlack/60 border border-bloodBorder rounded-xl p-4 flex items-center justify-between">
+                            <span class="text-xs text-zinc-300 font-semibold">Estimasi Harga Jasa</span>
+                            <span class="font-extrabold text-red-500 text-base">Rp 200.000 - Rp 300.000</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-bloodBorder flex justify-end">
+                        <a href="https://discord.com/users/jobaarr" target="_blank" class="bg-bloodRed hover:bg-red-700 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center space-x-2">
+                            <span>Optimize Sekarang</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 3. Perbaikan Map (Map Fix & Polishing) -->
+                <div class="bg-bloodCard border border-bloodBorder rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-bloodBorder">
+                            <div class="text-red-500 text-2xl"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                            <h3 class="text-xl font-bold">3. Perbaikan Map (Map Fix & Polishing)</h3>
+                        </div>
+                        <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                            Merapikan part yang bocor/berantakan, perbaikan lighting (pencahayaan tematik/malam hari), dan bug fix visual lainnya.
+                        </p>
+                        <div class="bg-bloodBlack/60 border border-bloodBorder rounded-xl p-4 flex items-center justify-between">
+                            <span class="text-xs text-zinc-300 font-semibold">Estimasi Harga Jasa</span>
+                            <span class="font-extrabold text-red-500 text-base">Rp 50.000 - Rp 200.000</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-bloodBorder flex justify-end">
+                        <a href="https://discord.com/users/jobaarr" target="_blank" class="bg-bloodRed hover:bg-red-700 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center space-x-2">
+                            <span>Fix Map Kamu</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 4. Perbaikan System Map (Scripting & UI) -->
+                <div class="bg-bloodCard border border-bloodBorder rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-bloodBorder">
+                            <div class="text-red-500 text-2xl"><i class="fa-solid fa-code"></i></div>
+                            <h3 class="text-xl font-bold">4. Perbaikan System Map (Scripting & UI)</h3>
+                        </div>
+                        <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                            Memperbaiki script Luau yang error, fix GUI yang tidak muncul, atau benerin sistem DataStore yang bermasalah.
+                        </p>
+                        <div class="bg-bloodBlack/60 border border-bloodBorder rounded-xl p-4 flex items-center justify-between">
+                            <span class="text-xs text-zinc-300 font-semibold">Estimasi Harga Jasa</span>
+                            <span class="font-extrabold text-red-500 text-base">Rp 75.000 - Rp 300.000</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-bloodBorder flex justify-end">
+                        <a href="https://discord.com/users/jobaarr" target="_blank" class="bg-bloodRed hover:bg-red-700 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center space-x-2">
+                            <span>Konsultasi Script</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 5. Ganti Layout / Tema Map -->
+                <div class="bg-bloodCard border border-bloodBorder rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-bloodBorder">
+                            <div class="text-red-500 text-2xl"><i class="fa-solid fa-paint-roller"></i></div>
+                            <h3 class="text-xl font-bold">5. Ganti Layout / Tema Map</h3>
+                        </div>
+                        <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                            Mengubah tata letak map yang sudah ada, mengubah tema keseluruhan (misal dari terang ke tema horor yang gelap dan gloomy), atau penambahan properti baru.
+                        </p>
+                        <div class="bg-bloodBlack/60 border border-bloodBorder rounded-xl p-4 flex items-center justify-between">
+                            <span class="text-xs text-zinc-300 font-semibold">Estimasi Harga Jasa</span>
+                            <span class="font-extrabold text-red-500 text-base">Rp 150.000 - Rp 450.000</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-bloodBorder flex justify-end">
+                        <a href="https://discord.com/users/jobaarr" target="_blank" class="bg-bloodRed hover:bg-red-700 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center space-x-2">
+                            <span>Ganti Tema Map</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 6. Penambahan Music / Dance System -->
+                <div class="bg-bloodCard border border-bloodBorder rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-bloodBorder">
+                            <div class="text-red-500 text-2xl"><i class="fa-solid fa-music"></i></div>
+                            <h3 class="text-xl font-bold">6. Penambahan Music / Dance System</h3>
+                        </div>
+                        <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                            Memasukkan lagu custom, membuat UI music player, atau menambahkan script interaktif untuk animasi dance dan nongkrong.
+                        </p>
+                        <div class="space-y-3">
+                            <div class="bg-bloodBlack/60 border border-bloodBorder rounded-xl p-4 flex items-center justify-between">
+                                <span class="text-xs text-zinc-300 font-semibold">Estimasi Jasa Sistem</span>
+                                <span class="font-extrabold text-red-500 text-base">Rp 50.000 - Rp 150.000</span>
+                            </div>
+                            <div class="bg-red-950/40 border border-red-900/60 rounded-xl p-3 text-xs text-red-300 flex items-center justify-between">
+                                <span>Add-on: 1 Lagu Siap Pakai (bisa request dari YouTube/SoundCloud)</span>
+                                <span class="font-bold text-white">Rp 10k / lagu</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-bloodBorder flex justify-end">
+                        <a href="https://discord.com/users/jobaarr" target="_blank" class="bg-bloodRed hover:bg-red-700 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center space-x-2">
+                            <span>Pesan Musik & Dance</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assets Section -->
+    <section id="assets" class="py-24 bg-bloodCard/40 border-t border-bloodBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-3"><i class="fa-solid fa-boxes-stacked mr-2"></i>Individual Roblox Assets</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold">Jual Asset Map Satuan</p>
+                <p class="text-zinc-400 text-sm mt-2">Butuh model, props, atau sistem script terpisah untuk melengkapi game Roblox bikinanmu sendiri?</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Asset 1 -->
+                <div class="bg-bloodCard border border-bloodBorder rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="text-red-500 text-2xl mb-4"><i class="fa-solid fa-skull-crossbones"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Jumpscare & Monster AI</h3>
+                        <p class="text-zinc-400 text-sm mb-4">Script jumpscare layar merah berdarah, suara teriakan menyeramkan, dan pengejaran entity otomatis.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-bloodBorder">
+                        <div>
+                            <span class="text-[10px] text-zinc-500 block uppercase tracking-wider">Harga Asset</span>
+                            <span class="font-extrabold text-white text-base">Rp 100.000</span>
+                        </div>
+                        <a href="https://discord.com/users/jobaarr" target="_blank" class="bg-bloodRed hover:bg-red-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1.5">
+                            <i class="fa-brands fa-discord"></i>
+                            <span>Beli</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Asset 2 -->
+                <div class="bg-bloodCard border border-bloodBorder rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="text-red-500 text-2xl mb-4"><i class="fa-solid fa-cloud-showers-heavy"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Skybox Changer & Rain System</h3>
+                        <p class="text-zinc-400 text-sm mb-4">Sistem pengubah langit malam mencekam dan efek hujan badai real-time yang bikin suasana horor makin dapet.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-bloodBorder">
+                        <div>
+                            <span class="text-[10px] text-zinc-500 block uppercase tracking-wider">Harga Asset</span>
+                            <span class="font-extrabold text-white text-base">Rp 50.000</span>
+                        </div>
+                        <a href="https://discord.com/users/jobaarr" target="_blank" class="bg-bloodRed hover:bg-red-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1.5">
+                            <i class="fa-brands fa-discord"></i>
+                            <span>Beli</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Asset 3 -->
+                <div class="bg-bloodCard border border-bloodBorder rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="text-red-500 text-2xl mb-4"><i class="fa-solid fa-bed"></i></div>
+                        <h3 class="text-lg font-bold mb-2">AFK System</h3>
+                        <p class="text-zinc-400 text-sm mb-4">Sistem deteksi pemain AFK otomatis lengkap dengan zona atau GUI khusus player yang sedang idle.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-bloodBorder">
+                        <div>
+                            <span class="text-[10px] text-zinc-500 block uppercase tracking-wider">Harga Asset</span>
+                            <span class="font-extrabold text-white text-base">Rp 50.000</span>
+                        </div>
+                        <a href="https://discord.com/users/jobaarr" target="_blank" class="bg-bloodRed hover:bg-red-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1.5">
+                            <i class="fa-brands fa-discord"></i>
+                            <span>Beli</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Jasa Section -->
+    <section id="services" class="py-24 bg-bloodCard/40 border-t border-bloodBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-3">Layanan Studio Horor</h2>
+            <p class="text-3xl sm:text-4xl font-extrabold mb-4">Butuh Custom Map Sesuai Keinginanmu?</p>
+            <p class="text-zinc-400 text-sm max-w-xl mx-auto mb-12">Ceritakan ide cerita seram atau lokasi angker versimu, biarkan tim Demit Studio mewujudkannya dalam Roblox Studio.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
+                <div class="bg-bloodCard border border-bloodBorder p-8 rounded-2xl">
+                    <div class="text-red-500 text-3xl mb-4"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Custom Horror Map Design</h3>
+                    <p class="text-zinc-400 text-sm mb-6">Pembuatan bangunan terbengkalai, hutan lebat, rumah sakit tua, hingga nuansa perkampungan mistis dengan detail pencahayaan gelap yang sinematik.</p>
+                    <span class="text-red-500 font-bold text-sm">Mulai Rp 400.000</span>
+                </div>
+                <div class="bg-bloodCard border border-bloodBorder p-8 rounded-2xl">
+                    <div class="text-red-500 text-3xl mb-4"><i class="fa-solid fa-terminal"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Advanced Horror Scripting</h3>
+                    <p class="text-zinc-400 text-sm mb-6">Pembuatan sistem puzzle menyeramkan, pintu terkunci dengan kunci rahasia, monster AI pengejar, dan sistem lompatan kaget (jumpscare) interaktif.</p>
+                    <span class="text-red-500 font-bold text-sm">Mulai Rp 350.000</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-bloodCard border-t border-bloodBorder pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-blood-gradient flex items-center justify-center font-bold text-sm text-white"><i class="fa-solid fa-ghost"></i></div>
+                        <span class="font-extrabold text-lg text-blood-gradient">DEMIT STUDIO</span>
+                    </div>
+                    <p class="text-zinc-400 text-sm max-w-xs leading-relaxed">
+                        Pusat pembuatan map horor Roblox, jual map siap pakai, dan asset berkualitas tinggi.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-white mb-4">Navigasi Gelap</h4>
+                    <ul class="space-y-2 text-sm text-zinc-400">
+                        <li><a href="#catalog" class="hover:text-red-500 transition">Map Siap Pakai</a></li>
+                        <li><a href="#pricelist" class="hover:text-red-500 transition">Price List Jasa</a></li>
+                        <li><a href="#assets" class="hover:text-red-500 transition">Asset Satuan</a></li>
+                        <li><a href="#services" class="hover:text-red-500 transition">Layanan Lain</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-white mb-4">Hubungi Demit</h4>
+                    <p class="text-zinc-400 text-sm mb-4">Siap melayani pemesanan map dan konsultasi horor via Discord kapan pun.</p>
+                    <a href="https://discord.com/users/jobaarr" target="_blank" class="inline-flex items-center space-x-2 text-red-500 font-bold text-sm hover:underline">
+                        <i class="fa-brands fa-discord text-lg"></i>
+                        <span>Discord Admin: @jobaarr</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-bloodBorder flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500">
+                <p>&copy; 2026 DEMIT STUDIO. All Rights Reserved.</p>
+                <p class="mt-2 sm:mt-0">Dipersembahkan untuk Para Creator Roblox</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu & Toast Notification -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Custom Toast Notification (No alert() used)
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.textContent = message;
+            
+            toast.classList.remove('transform', 'translate-y-28', 'opacity-0');
+            toast.classList.add('transform', 'translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('transform', 'translate-y-0', 'opacity-100');
+                toast.classList.add('transform', 'translate-y-28', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
